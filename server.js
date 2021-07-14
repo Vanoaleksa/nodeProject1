@@ -1,6 +1,6 @@
 const http = require("http");
 var cors = require("cors");
-var express = require('express')
+var express = require("express");
 var app = express();
 
 app.use(cors());
@@ -21,6 +21,20 @@ server.on("request", (req, res) => {
 server.listen(5000, () => console.log("Server works"));
 
 app.get("/dataArray", function (req, res) {
-    console.log('fff')
+  console.log("fff");
+  res.send(dataArray);
+});
+
+app.delete("/delete/:id", (req, res) => {
+  let id = parseInt(req.params.id);
+  console.log("req.params.id= " + id);
+  dataArray = [
+    ...dataArray.filter((el) => {
+      console.log("el", el);
+      console.log("id", id);
+      return id !== el.id;
+    }),
+  ];
+  console.log(dataArray);
   res.send(dataArray);
 });
