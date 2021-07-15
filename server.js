@@ -38,3 +38,14 @@ app.delete("/delete/:id", (req, res) => {
   console.log(dataArray);
   res.send(dataArray);
 });
+
+app.post("/add", (req, res) => {
+  let lastIndex = dataArray[dataArray.length - 1].id;
+  console.log(lastIndex);
+  dataArray = [
+    ...dataArray,
+    { id: lastIndex + 1, country: "", age: "", sex: "" },
+  ];
+  console.log(dataArray);
+  res.send(dataArray);
+});
