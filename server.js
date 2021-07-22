@@ -2,8 +2,12 @@ const http = require("http");
 var cors = require("cors");
 var express = require("express");
 var app = express();
+let bodyParser = require('body-parser')
+
+let jsonParser = bodyParser.json()
 
 app.use(cors());
+
 
 const server = http.createServer(app);
 
@@ -27,7 +31,7 @@ app.get("/dataArray", function (req, res) {
 
 app.delete("/delete/:id", (req, res) => {
   let id = parseInt(req.params.id);
-  console.log("req.params.id= " + id);
+  console.log("req.params.id= " + id);0
   dataArray = [
     ...dataArray.filter((el) => {
       console.log("el", el);
@@ -48,4 +52,15 @@ app.post("/add", (req, res) => {
   ];
   console.log(dataArray);
   res.send(dataArray);
+});
+
+app.patch('/update/:id', jsonParser, (req, res) => {
+  console.log('requpdate',req.body);
+  res.send(req.body);
+  // return {
+  //   id: dataArray.id,
+  //   country: countryField.current.value,
+  //   age: ageField.current.value,
+  //   sex: sexField.current.value,
+  // };
 });
