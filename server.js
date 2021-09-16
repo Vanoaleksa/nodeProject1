@@ -12,9 +12,9 @@ app.use(cors());
 const server = http.createServer(app);
 
 let dataArray = [
-  { id: 0, country: "Belarus", age: "21", sex: "men" },
-  { id: 1, country: "Portugal", age: "44", sex: "men" },
-  { id: 2, country: "China", age: "33", sex: "men" },
+  { id: 0, country: "Belarus", age: "21", sex: "men", isChecked:false},
+  { id: 1, country: "Portugal", age: "44", sex: "men", isChecked:false},
+  { id: 2, country: "China", age: "33", sex: "men", isChecked:false },
 ];
 
 server.on("request", (req, res) => {
@@ -25,13 +25,13 @@ server.on("request", (req, res) => {
 server.listen(5000, () => console.log("Server works"));
 
 app.get("/dataArray", function (req, res) {
-  console.log("fff");
+  console.log("start");
   res.send(dataArray);
 });
 
 app.delete("/delete/:id", (req, res) => {
   let id = parseInt(req.params.id);
-  console.log("req.params.id= " + id);0
+  console.log("req.params.id= " + id); 0
   dataArray = [
     ...dataArray.filter((el) => {
       console.log("el", el);
@@ -48,14 +48,14 @@ app.post("/add", (req, res) => {
   console.log(lastIndex);
   dataArray = [
     ...dataArray,
-    { id: lastIndex + 1, country: "", age: "", sex: "" },
+    { id: lastIndex + 1, country: "", age: "", sex: "",isChecked:false },
   ];
   console.log(dataArray);
   res.send(dataArray);
 });
 
 app.patch('/update/:id', jsonParser, (req, res) => {
-  console.log('requpdate',req.body);
+  console.log('requpdate', req.body);
   res.send(req.body);
   // return {
   //   id: dataArray.id,
