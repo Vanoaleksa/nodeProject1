@@ -31,27 +31,43 @@ app.get("/dataArray", function (req, res) {
 
 app.delete("/delete/:id", (req, res) => {
   let id = parseInt(req.params.id);
-  console.log("req.params.id= " + id); 0
-  dataArray = [
-    ...dataArray.filter((el) => {
+  let newarray = dataArray;
+  newarray = [
+    ...newarray.filter((el) => {
       console.log("el", el);
       console.log("id", id);
       return id !== el.id;
     }),
   ];
-  console.log(dataArray);
-  res.send(dataArray);
+
+  // dataArray = [
+  //   ...dataArray.filter((el) => {
+  //     console.log("el", el);
+  //     console.log("id", id);
+  //     return id !== el.id;
+  //   }),
+  // ];
+  console.log('newarr',newarray);
+  res.send(newarray);
+  dataArray.length= 0;
+  dataArray.push(...newarray)
 });
 
 app.post("/add", (req, res) => {
-  let lastIndex = dataArray[dataArray.length - 1].id;
+  let newarray = dataArray;
+
+  let lastIndex = newarray[newarray.length - 1].id;
+  // let lastIndex = dataArray[dataArray.length - 1].id;
+
   console.log(lastIndex);
-  dataArray = [
-    ...dataArray,
+  newarray = [
+    ...newarray,
     { id: lastIndex + 1, country: "", age: "", sex: "",isChecked:false },
   ];
-  console.log(dataArray);
-  res.send(dataArray);
+  console.log(newarray);
+  res.send(newarray);
+  dataArray.length= 0;
+  dataArray.push(...newarray)
 });
 
 app.patch('/update/:id', jsonParser, (req, res) => {
